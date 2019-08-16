@@ -45,7 +45,12 @@ while True:
     elif char == ord('q'):
         pos = MID
         # accel = STOP
-        break
+
+        #  curses.nocbreak()
+        #  screen.keypad(False)
+        #  curses.echo()
+        curses.endwin()
+
     # Send changes to motors
     screen.addstr(0,0,f'MOTOR0: {pos}\nMOTOR1: {accel}')
     pwm.set_pwm(STEER,0,pos)
