@@ -1,4 +1,5 @@
 import Adafruit_PCA9685
+import time
 import curses
 
 MAX_L = 220
@@ -8,7 +9,7 @@ VEER_ERR = 10
 MID = 320 + VEER_ERR
 
 # Change in pos/accel per move
-DELTA_POS = 10
+DELTA_POS = 30
 DELTA_ACCEL = 10
 
 # Motor channels
@@ -33,24 +34,21 @@ screen.keypad(True)
 pos = MID
 accel = 0 # STOP
 
+count = 0
 while True:
     # TODO: If haven't got a signal in 1 sec or so, go to stop/mid position. - SAFETY
     char = screen.getch()
     if char == curses.KEY_LEFT:
+
         if pos >= (MAX_L+DELTA_POS):
-            screen.addstr(0,0,f'TRUE LEFT')
-            pos = MID - DELTA_POS
+            pos -= DELTA_POS
     elif char == curses.KEY_RIGHT:
         if pos <= (MAX_R-DELTA_POS):
-            screen.addstr(0,0,f'TRUE RIGHT')
-            pos = MID + DELTA_POS
+            pos += DELTA_POS
     elif char == ord('q'):
         pos = MID
         # accel = STOP
 
-        #  curses.nocbreak()
-        #  screen.keypad(False)
-        #  curses.echo()
         curses.endwin()
         break
 
