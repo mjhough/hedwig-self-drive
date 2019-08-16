@@ -38,9 +38,11 @@ while True:
     char = screen.getch()
     if char == curses.KEY_LEFT:
         if pos >= (MAX_L+DELTA_POS):
+            screen.addstr(0,0,f'TRUE LEFT')
             pos = MID - DELTA_POS
     elif char == curses.KEY_RIGHT:
         if pos <= (MAX_R-DELTA_POS):
+            screen.addstr(0,0,f'TRUE RIGHT')
             pos = MID + DELTA_POS
     elif char == ord('q'):
         pos = MID
@@ -50,6 +52,7 @@ while True:
         #  screen.keypad(False)
         #  curses.echo()
         curses.endwin()
+        break
 
     # Send changes to motors
     screen.addstr(0,0,f'MOTOR0: {pos}\nMOTOR1: {accel}')
